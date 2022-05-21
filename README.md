@@ -1,8 +1,8 @@
 ## Teknologitrender
 
-## Oppgave 3 - Temamodellering og perspektiver på digital humaniora 
+# Oppgave 3 - Temamodellering og perspektiver på digital humaniora 
 
-### Temamodellering
+## Temamodellering
 
 N-gram-søk, konkordansanalyser og kollokasjonsanalyser er alle ulike typer tekstmining-metoder som tar utgangspunkt i nøkkelord. Vi må da vite hva vi skal søke etter. Hva om vi ønsker å ta en motsatt tilnærming til dette? Her kommer temamodellering inn.
 
@@ -16,11 +16,54 @@ Hvordan virker det? Vi har en samling av tekster og ønsker å utlede de underli
 
 Resultatene av denne prosessen kan brukes til å oppsummere, visualisere og utforske et sett med tekster ved å utlede den tematiske strukturen i teksten. Vi kan også bruke de resulterende temaene som et hjelpemiddel for å bekrefte eksisterende teorier eller danne nye, men det er fortsatt vi som må ta oss av selve tolkningen og forståelsen av resultatene.
 
-### Teknologidiskurs på Twitter
+## Teknologidiskurs på Twitter
 
 Temamodellering er et nyttig forskningsverktøy. Mulighetene er uendelige i et hav av data. I denne oppgaven skal vi ved hjelp av temamodellering undersøke hvordan teknologi, eller nærmere sagt "tech" diskuteres på det sosiale nettverket Twitter.
 
-Teknologi er i stadig utvikling. Ved å se nærmere på diskursen rundt teknologi på twitter kan vi identifisere nåværende trender og reaksjoner. Temamodelleringen i denne oppgaven vil være basert på et datasett av 100 tweets som diskuterer 'tech' generert fra nettsiden [Tweet Sentiment to CSV] (https://twitter-sentiment-csv.herokuapp.com).
+Teknologi er i stadig utvikling. Ved å se nærmere på diskursen rundt teknologi på twitter kan vi identifisere nåværende trender og reaksjoner. Temamodelleringen i denne oppgaven vil være basert på et datasett av 100 tweets som diskuterer 'tech' generert fra nettsiden [Tweet Sentiment to CSV](https://twitter-sentiment-csv.herokuapp.com).
+
+## Metode
+
+### Preprosessering
+
+Preprosessering er viktig for å sikre kvaliteten av temamodelleringen. Det har blitt tatt en rekke steg for å sikre at vi kun jobber med den mest relevante dataen. Twitter-innlegg, tweets, vil kunne innholde tegnsetting og symboler som ikke sier mye om emnet. Regulære uttrykk var brukt til dette formålet. Følgende steg ble tatt i denne oppgavens preprosessering:
+
+- Gjort om all tekst til små bokstaver
+- Utelating av tegnsetting og symboler som :;.,-()&/+?§#$%
+- Utelating av brukernavn 
+```python
+    #match user (i.e: @r-kf )
+    (r'@\w+', ''),
+```
+- Utelating av emneknagger
+```python
+    #match hashtag (i.e: #DigitalHumaniora)
+    (r'#\w+', ''),
+```
+- Filtrering av Tweets på det latinske alfabetet
+- Lemmatisering ved hjelp av [The Natural Language Toolkit](https://www.nltk.org).
+- Utelating av standard _stopwords_ i The Natural Language Toolkit i tillegg til egendefinerte som:
+```python
+custom_stopwords = ['hi','\n','\n\n', '&amp;', ' ', '.', '-', 'got', "it's", 'it’s', "i'm", 'i’m', 'im', 'want', 'like', '$', '@']
+```
+- Utelating av nettadresser
+```python
+    #match url (i.e: https://uio.no)
+    (r'\w+:\/{2}[\d\w-]+(\.[\d\w-]+)*(?:(?:\/[^\s/]*))*', ''),
+```
+- Opprettelse av n-gram-modeller ved hjelp av [Gensim biblioteket](https://github.com/RaRe-Technologies/gensim).
+```python
+bigram = gensim.models.Phrases(tweets, min_count=5, threshold=100)
+trigram = gensim.models.Phrases(bigram[tweets], threshold=100)  
+
+bigram_mod = gensim.models.phrases.Phraser(bigram)
+trigram_mod = gensim.models.phrases.Phraser(trigram)
+```
+
+### Temamodellering med Latent Dirichlet Allocation (LDA)
+
+
+
 
 
 ```markdown
