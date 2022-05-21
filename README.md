@@ -60,39 +60,67 @@ bigram_mod = gensim.models.phrases.Phraser(bigram)
 trigram_mod = gensim.models.phrases.Phraser(trigram)
 ```
 
+
+
+
+
 ### Temamodellering med Latent Dirichlet Allocation (LDA)
 
+I denne oppgaven bruker vi Latent Dirichlet Allocation, LDA, for temamodelleringen. Metoden vil klassifisere teksten i Tweet-samlingen til ulike tema.
 
+Gjennomføringen og visualiseringen av temamodellen blir utført med Python-biblioteket [pyLDAvis](https://github.com/bmabey/pyLDAvis). Dette vil gi oss en interaktiv modell med de ulike temaene i samlingen.
 
-
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+Vi begynner med å telle ord og gruppere lignende mønstre for å definere tema. Modellen kan ved hjelp av ordfrekvensen og ordsammenkomstene identifisere mønstre som kan danne ulike ordgrupper. Verktøyet ```gensim.corpora.Dictionary``` lar oss omgjøre samlingen av ord til "bøtter" hvor vi har tupler av ordenes frekvens.
+```python
+id2word = Dictionary(tweets)
+corpus = [id2word.doc2bow(text) for text in tweets]
+print(corpus[:1])
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+Vi kan med dette bygge vår Latent Dirichlet Allocation modell som i første omgang ser slik ut:
+```bash
+[(0,
+  '0.028*"big" + 0.019*"work" + 0.019*"-" + 0.019*"tech" + 0.010*"evidence" + '
+  '0.010*"instrumentation" + 0.010*"bring" + 0.010*"election" + '
+  '0.010*"ccarneym" + 0.010*"likely"'),
+ (1,
+  '0.042*"tech" + 0.016*"stae" + 0.016*"big" + 0.016*"father" + 0.016*"come" + '
+  '0.016*"oga" + 0.016*"hard" + 0.016*"home" + 0.016*"ask" + 0.016*"cry"'),
+ (2,
+  '0.027*"\u200d" + 0.019*"know" + 0.016*"design" + 0.013*"step" + 0.012*"t" + '
+  '0.011*"tech.anideaonashi" + 0.011*"right" + 0.011*"broken" + 0.011*"thank" '
+  '+ 0.011*"nspeaker"'),
+ (3,
+  '0.032*"tech" + 0.017*"revolution" + 0.017*"serve" + 0.017*"term" + '
+  '0.017*"world" + 0.017*"year" + 0.017*"need" + 0.017*"colleague" + '
+  '0.017*"lead" + 0.017*"become"'),
+ (4,
+  '0.017*"tech" + 0.017*"go" + 0.017*"review" + 0.017*"talk" + 0.009*"know" + '
+  '0.009*"stae" + 0.009*"moment" + 0.009*"night" + 0.009*"apparently" + '
+  '0.009*"s"'),
+ (5,
+  '0.039*"tech" + 0.031*"pill" + 0.019*"\u200d" + 0.017*"👩" + 0.016*"bourla" + '
+  '0.016*"new" + 0.016*"explain" + 0.016*"chip" + 0.016*"ingestible" + '
+  '0.016*"ceo"'),
+ (6,
+  '0.043*"tech" + 0.022*"trudeau" + 0.012*"ongoing" + 0.012*"call" + '
+  '0.012*"swee" + 0.012*"year" + 0.012*"company" + 0.012*"giant" + '
+  '0.012*"genocide" + 0.012*"online"'),
+ (7,
+  '0.048*"tech" + 0.034*"big" + 0.021*"✅" + 0.014*"cry" + 0.014*"day" + '
+  '0.014*"matter" + 0.014*"car" + 0.014*"father" + 0.014*"month" + '
+  '0.014*"hard"'),
+ (8,
+  '0.050*"tech" + 0.019*"folk" + 0.019*"remember" + 0.019*"stae" + '
+  '0.019*"magnate" + 0.019*"baron" + 0.019*"nerd" + 0.019*"old" + '
+  '0.019*"think" + 0.019*"repulsive"'),
+ (9,
+  '0.044*"tech" + 0.018*"fix" + 0.018*"skill" + 0.018*"pill" + 0.018*"hard" + '
+  '0.018*"house" + 0.010*"big" + 0.009*"oga" + 0.009*"come" + 0.009*"home"')]
 
-### Jekyll Themes
+```
+For et klarere bilde av modellen genererer vi en interaktiv _Topic Distance Visualization_
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/r-kf/tech-twitter/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
 
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/bmabey/pyLDAvis@3.3.1/pyLDAvis/js/ldavis.v1.0.0.css">
 
@@ -134,3 +162,13 @@ if(typeof(LDAvis) !== "undefined"){
          });
 }
 </script>
+
+
+
+### Jekyll Themes
+
+Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/r-kf/tech-twitter/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+
+### Support or Contact
+
+Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
