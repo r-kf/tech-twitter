@@ -26,7 +26,7 @@ Teknologi er i stadig utvikling. Ved å se nærmere på diskursen rundt teknolog
 
 ### Preprosessering
 
-Preprosessering er viktig for å sikre kvaliteten av temamodelleringen. Det har blitt tatt en rekke steg for å sikre at vi kun jobber med den mest relevante dataen. Twitter-innlegg, tweets, vil kunne innholde tegnsetting og symboler som ikke sier mye om emnet. Regulære uttrykk var brukt til dette formålet. Følgende steg ble tatt i denne oppgavens preprosessering:
+Preprosessering er viktig for å sikre kvaliteten av temamodelleringen. Det har blitt tatt en rekke steg for å sikre at vi kun jobber med den mest relevante dataen. Twitter-innlegg, tweets, vil kunne innholde tegnsetting og symboler som ikke sier mye om emnet. Regulære uttrykk lar oss filtrere bort dette. Følgende steg ble tatt i denne oppgavens preprosessering:
 
 - Gjort om all tekst til små bokstaver
 - Utelating av tegnsetting og symboler som :;.,-()&/+?§#$%
@@ -59,8 +59,6 @@ trigram = gensim.models.Phrases(bigram[tweets], threshold=100)
 bigram_mod = gensim.models.phrases.Phraser(bigram)
 trigram_mod = gensim.models.phrases.Phraser(trigram)
 ```
-
-
 
 
 
