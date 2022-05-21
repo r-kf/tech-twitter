@@ -1,12 +1,21 @@
 ## Teknologitrender
 
-You can use the [editor on GitHub](https://github.com/r-kf/tech-twitter/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+## Oppgave 3 - Temamodellering og perspektiver på digital humaniora 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Temamodellering
 
-### Markdown
+N-gram-søk, konkordansanalyser og kollokasjonsanalyser er alle ulike typer tekstmining-metoder som tar utgangspunkt i nøkkelord. Vi må da vite hva vi skal søke etter. Hva om vi ønsker å ta en motsatt tilnærming til dette? Her kommer temamodellering inn.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Temamodellering lar oss undersøke et temas samforekomstmønster i tekster. Hvert tema er en gruppering av ord ut ifra samforekomst og samvariasjon. Klynger av ord grupperes basert på statistiske beregninger av tekstene. Kort sagt, «The essence of a topic model is in its input and its output: a corpus – a collection – of text goes in and a list of topics that comprise the text comes out the other side”(Graham et al., 2016).
+
+Hvordan virker det? Vi har en samling av tekster og ønsker å utlede de underliggende temaene. Ted Underwood, professor i informasjonsvitenskap ved University of Illinois, beskriver prosessen slik:
+
+> « [... As we iterate our estimates, adjusting our probabilities, fitting words into topics, fitting topics across         documents], a) words will gradually become more common in topics where they are already common. And also, b) topics will become more common in documents where they are already common. Thus, our model will gradually become more consistent as topics focus on specific words and documents. But it can’t ever become perfectly consistent, because words and documents don’t line up in one-to-one fashion. [...] the tendency for topics to concentrate on messy distribution of words across documents.
+> 
+> That’s how topic modeling works in practice. You assign words to topics randomly and then just keep improving the model, to make your guess more internally consistent, until the model reaches an equilibrium that is as consistent as the collection allows.” (Ted Underwood, 2012)
+
+### Metode
+
 
 ```markdown
 Syntax highlighted code block
