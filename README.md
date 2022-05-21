@@ -54,13 +54,8 @@ custom_stopwords = ['hi','\n','\n\n', '&amp;', ' ', '.', '-', 'got', "it's", 'it
 - Opprettelse av n-gram-modeller ved hjelp av [Gensim biblioteket](https://github.com/RaRe-Technologies/gensim).
 ```python
     bigram = gensim.models.Phrases(tweets, min_count=5, threshold=100)
-    trigram = gensim.models.Phrases(bigram[tweets], threshold=100)  
-
     bigram_mod = gensim.models.phrases.Phraser(bigram)
-    trigram_mod = gensim.models.phrases.Phraser(trigram)
-
 ```
-
 
 
 ### Temamodellering med Latent Dirichlet Allocation (LDA)
