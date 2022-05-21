@@ -58,10 +58,9 @@ trigram = gensim.models.Phrases(bigram[tweets], threshold=100)
 
 bigram_mod = gensim.models.phrases.Phraser(bigram)
 trigram_mod = gensim.models.phrases.Phraser(trigram)
+
 ```
-
-
-
+   
 
 
 ### Temamodellering med Latent Dirichlet Allocation (LDA)
