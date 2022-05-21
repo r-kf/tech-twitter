@@ -62,6 +62,8 @@ trigram_mod = gensim.models.phrases.Phraser(trigram)
 
 
 
+
+
 ### Temamodellering med Latent Dirichlet Allocation (LDA)
 
 I denne oppgaven bruker vi Latent Dirichlet Allocation, LDA, for temamodelleringen. Metoden vil klassifisere teksten i Tweet-samlingen til ulike tema.
