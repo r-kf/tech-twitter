@@ -60,8 +60,9 @@ bigram_mod = gensim.models.phrases.Phraser(bigram)
 trigram_mod = gensim.models.phrases.Phraser(trigram)
 
 ```
-   
-___
+
+
+
 
 ### Temamodellering med Latent Dirichlet Allocation (LDA)
 
