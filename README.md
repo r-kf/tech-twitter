@@ -14,7 +14,13 @@ Hvordan virker det? Vi har en samling av tekster og ønsker å utlede de underli
 > 
 > That’s how topic modeling works in practice. You assign words to topics randomly and then just keep improving the model, to make your guess more internally consistent, until the model reaches an equilibrium that is as consistent as the collection allows.” (Ted Underwood, 2012)
 
-### Metode
+Resultatene av denne prosessen kan brukes til å oppsummere, visualisere og utforske et sett med tekster ved å utlede den tematiske strukturen i teksten. Vi kan også bruke de resulterende temaene som et hjelpemiddel for å bekrefte eksisterende teorier eller danne nye, men det er fortsatt vi som må ta oss av selve tolkningen og forståelsen av resultatene.
+
+### Teknologidiskurs på Twitter
+
+Temamodellering er et nyttig forskningsverktøy. Mulighetene er uendelige i et hav av data. I denne oppgaven skal vi ved hjelp av temamodellering undersøke hvordan teknologi, eller nærmere sagt "tech" diskuteres på det sosiale nettverket Twitter.
+
+Teknologi er i stadig utvikling. Ved å se nærmere på diskursen rundt teknologi på twitter kan vi identifisere nåværende trender og reaksjoner. Temamodelleringen i denne oppgaven vil være basert på et datasett av 100 tweets som diskuterer 'tech' generert fra nettsiden [Tweet Sentiment to CSV] (https://twitter-sentiment-csv.herokuapp.com).
 
 
 ```markdown
