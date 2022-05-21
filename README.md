@@ -163,12 +163,17 @@ if(typeof(LDAvis) !== "undefined"){
 }
 </script>
 
+Hver boble representerer et tema fra Tweet-samlingen. Størrelsen på boblen viser til prosentdelen av Tweet-ene som hører til tema. Frekvensen av ordene blir representert av de blå stolpene til høyre og antall ganger et gitt ord var i temaet representeres av den røde stolpen. Vi kan for eksempel se at over halvparten av gangene CEO ble brukt var det i det tredje tema.
 
+Distansen mellom de ulike boblene representerer hvor ulike de er fra hverandre. Lignende tema står i klynger. Ideelt sett vil vi at boblene skal være store med god avstand mellom seg men størrelsen på tweetsamlingen og datainnsamlingsmetoden fører til stort overlapp mellom temaene. 
 
-### Jekyll Themes
+Temamodellen viser temaer som _Big Tech_, politikk og bitcoin som diskurs i teknologi-relaterte Twitter-innlegg. Med et større datasett ville vi ved hjelp av denne metoden kunne ha sett klarere skille mellom de ulike temaene og muligens identifisere flere trender.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/r-kf/tech-twitter/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### Referanser
 
-### Support or Contact
+Graham, S., Milligan, I., & Weingart, S. B. (2016). Exploring Big Historical Data: the historian’s macroscope. Imperial College Press.
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+Ted Underwood. (2012, April 7). Topic modeling made just simple enough. Tedunderwood. https://tedunderwood.com/2012/04/07/topic-modeling-made-just-simple-enough/
+
+David Blei (2012). Topic Modeling and Digital Humanities. Journal of Digital Humanities, vol. 2, no. 1. http://journalofdigitalhumanities.org/2-1/topic-modeling-and-digital-humanities-by-david-m-blei/
+
