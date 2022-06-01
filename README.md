@@ -175,7 +175,7 @@ David Blei (2012). Topic Modeling and Digital Humanities. Journal of Digital Hum
 
 ### Kildekode
 
-## preprocess.py
+#### preprocess.py
 
 ```python
 import xml.etree.ElementTree as ET
@@ -268,7 +268,6 @@ def lemmatization(text, allowed_postags=['NOUN', 'ADJ', 'VERB', 'ADV']):
     doc = nlp(" ".join(text)) 
     return [token.lemma_ for token in doc if token.pos_ in allowed_postags]
 
-#nlp = spacy.load('en', disable=['parser', 'ner']) !!
 nlp = spacy.load('en_core_web_sm', disable=['parser', 'ner'])
 tknz = TweetTokenizer()
 replacer = RegexReplacer()
@@ -313,7 +312,7 @@ pd.DataFrame(joint_tweets, columns=['Tweets']).to_csv('processed_tweets.csv')
 
 ```
 
-## topic_model.py
+#### topic_model.py
 
 ```python
 import gensim
@@ -360,5 +359,8 @@ doc_lda = lda_model[corpus]
 #Creating Topic Distance Visualization 
 visualization = pyLDAvis.gensim_models.prepare(lda_model, corpus, id2word)
 pyLDAvis.save_html(visualization, 'LDA_Visualization.html')
+
+```
+
 
 
