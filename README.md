@@ -18,9 +18,11 @@ Resultatene av denne prosessen kan brukes til å oppsummere, visualisere og utfo
 
 ## Teknologidiskurs på Twitter
 
-Temamodellering er et nyttig forskningsverktøy. Mulighetene er uendelige i et hav av data. I denne oppgaven skal vi ved hjelp av temamodellering undersøke hvordan teknologi, eller nærmere sagt "tech" diskuteres på det sosiale nettverket Twitter.
+Temamodellering er et nyttig forskningsverktøy. Mulighetene er uendelige i et hav av data. Vi har tidligere tatt utgangspunkt i tradisjonelle medier gjennom bok- og avissamlinger. Men hva om vi vil utforske diskurs i nåtiden og se nærmere på hvilke tanker allmennheten har? I denne oppgaven skal vi ved hjelp av temamodellering undersøke hvordan teknologi, eller nærmere sagt "tech" diskuteres på det sosiale nettverket Twitter.
 
-Teknologi er i stadig utvikling. Ved å se nærmere på diskursen rundt teknologi på twitter kan vi identifisere nåværende trender og reaksjoner. Temamodelleringen i denne oppgaven vil være basert på et datasett av 100 tweets som diskuterer 'tech' generert fra nettsiden [Tweet Sentiment to CSV](https://twitter-sentiment-csv.herokuapp.com).
+I motsetning til bøker og aviser kan hvem som helst når som helst dele tankene sine offentlig på sosiale medier. Dette gir oss et mer variert utvalg av tanker og meninger. Vi slipper å vente på digitaliseringen av fysisk media og kan hente ut og analysere innhold som ble skrevet for minutter siden.
+
+Teknologi er i stadig utvikling. Ved å se nærmere på diskursen rundt teknologi på twitter kan vi identifisere nåværende trender og reaksjoner. Temamodelleringen i denne oppgaven vil være basert på et datasett av 100 tweets som diskuterer 'tech' generert fra nettsiden [Tweet Sentiment to CSV](https://twitter-sentiment-csv.herokuapp.com). I skrivende stund er disse 100 tweetene de ferskeste på Twitter som omhandler "tech" og vi får derfor et innblikk i hva folk i tech-verdenen snakker om _akkurat nå_.
 
 ## Metode
 
@@ -161,7 +163,7 @@ Hver boble representerer et tema fra Tweet-samlingen. Størrelsen på boblen vis
 
 Distansen mellom de ulike boblene representerer hvor ulike de er fra hverandre. Lignende tema står i klynger. Ideelt sett vil vi at boblene skal være store med god avstand mellom seg men størrelsen på tweetsamlingen og datainnsamlingsmetoden fører til stort overlapp mellom temaene. 
 
-Temamodellen viser temaer som _Big Tech_, politikk og bitcoin som diskurs i teknologi-relaterte Twitter-innlegg. Med et større datasett ville vi ved hjelp av denne metoden kunne ha sett klarere skille mellom de ulike temaene og muligens identifisere flere trender.
+Temamodellen viser temaer som _Big Tech_, politikk og bitcoin som diskurs i teknologi-relaterte Twitter-innlegg. Disse temaene går igjen uke etter uke. Dette forteller oss at det er nyheter eller utviklinger knyttet til temaene som fører til at de stadig er i diskusjon. Kryptovalutaen Bitcoin har for eksempel hatt store svingninger den siste tiden og er ofte diskutert. Kryptovaluta generelt er relativt nytt og populæriteten og diskursen ville mest sannsynlig ikke ha kommet like godt frem dersom vi hadde tatt utganspunkt i et bokkorpus over alle teknologi-relaterte bøker de siste årene. Med et større datasett ville vi ved hjelp av denne metoden kunne ha sett klarere skille mellom de ulike temaene og muligens identifisere flere trender.
 
 ### Referanser
 
