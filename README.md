@@ -173,3 +173,192 @@ Ted Underwood. (2012, April 7). Topic modeling made just simple enough. Tedunder
 
 David Blei (2012). Topic Modeling and Digital Humanities. Journal of Digital Humanities, vol. 2, no. 1. http://journalofdigitalhumanities.org/2-1/topic-modeling-and-digital-humanities-by-david-m-blei/
 
+### Kildekode
+
+## preprocess.py
+
+```python
+import xml.etree.ElementTree as ET
+import re
+
+import nltk
+nltk.download('stopwords')
+nltk.download('wordnet')
+from nltk.tokenize import TweetTokenizer
+from nltk.corpus import stopwords
+import string
+from nltk.stem import WordNetLemmatizer
+
+import numpy as np
+
+# Required Libraries
+
+#Base and Cleaning 
+import pandas as pd
+import numpy as np
+import emoji
+import regex
+import re
+import string
+from collections import Counter
+
+#Visualizations
+import plotly.express as px
+import seaborn as sns
+import matplotlib.pyplot as plt 
+import pyLDAvis.gensim_models
+
+#Natural Language Processing (NLP)
+import spacy
+import gensim
+from spacy.tokenizer import Tokenizer
+import gensim.corpora as corpora
+from gensim.corpora import Dictionary
+from gensim.models.ldamulticore import LdaMulticore
+from gensim.models.coherencemodel import CoherenceModel
+from gensim.parsing.preprocessing import STOPWORDS as SW
+from sklearn.decomposition import LatentDirichletAllocation, TruncatedSVD
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.model_selection import GridSearchCV
+from pprint import pprint
+from wordcloud import STOPWORDS
+stopwords = set(STOPWORDS)
+import datapane as dp 
+
+import pickle 
+
+# Get data
+
+tweets = pd.read_csv('data.csv')
+tweets = tweets.Tweets.values.tolist()
+
+tweets[0]
+
+# Preprocessing
+replacement_patterns = [
+    #match url (i.e: https://uio.no)
+    (r'\w+:\/{2}[\d\w-]+(\.[\d\w-]+)*(?:(?:\/[^\s/]*))*', ''),
+
+    #match user (i.e: @jack )
+    (r'@\w+', ''),
+
+    #match hashtag (i.e: #DigitalHumaniora)
+    (r'#\w+', ''),
+
+    #Replace &... with ''
+    (r'&\w+', '')
+]
+
+class RegexReplacer(object):
+    def __init__(self, patterns = replacement_patterns):
+        self.patterns = [(re.compile(regrex),repl) for (regrex, repl) in
+                        patterns]
+    
+    #Replace the words that match the patterns with replacement words
+    def replace(self, text):
+        s = text
+        for (pattern, repl) in self.patterns:
+            s = re.sub(pattern, repl, s)
+        return s
+
+
+def lemmatization(text, allowed_postags=['NOUN', 'ADJ', 'VERB', 'ADV']):
+    """https://spacy.io/api/annotation"""
+    
+    doc = nlp(" ".join(text)) 
+    return [token.lemma_ for token in doc if token.pos_ in allowed_postags]
+
+#nlp = spacy.load('en', disable=['parser', 'ner']) !!
+nlp = spacy.load('en_core_web_sm', disable=['parser', 'ner'])
+tknz = TweetTokenizer()
+replacer = RegexReplacer()
+# Custom stopwords
+custom_stopwords = ['hi','\n','\n\n', '&amp;', ' ', '.', '-', 'got', "it's", 'it’s', "i'm", 'i’m', 'im', 'want', 'like', '$', '@']
+# Customize stop words by adding to the default list
+STOP_WORDS = nlp.Defaults.stop_words.union(custom_stopwords)
+ALL_STOP_WORDS = STOP_WORDS.union(SW).union(stopwords)
+
+punc = string.punctuation
+
+# Build the bigram and trigram models
+bigram = gensim.models.Phrases(tweets, min_count=5, threshold=100) # higher threshold fewer phrases.
+trigram = gensim.models.Phrases(bigram[tweets], threshold=100)  
+
+# Faster way to get a sentence clubbed as a trigram/bigram
+bigram_mod = gensim.models.phrases.Phraser(bigram)
+trigram_mod = gensim.models.phrases.Phraser(trigram)
+
+def normalize(doc):
+    
+    for i in range(len(doc)):
+        
+        doc[i] = give_emoji_free_text(doc[i])
+        
+        #Tokenize with replacement
+        doc[i] = tknz.tokenize(replacer.replace(doc[i]))
+        
+        #Filter stopwords, punctuations, and lowercase
+        doc[i] = [w.lower() for w in doc[i] if w not in punc and w not in ALL_STOP_WORDS]
+    
+        # Bigram
+        doc[i] = bigram_mod[doc[i]]
+        
+        doc[i] = lemmatization(doc[i], allowed_postags=['NOUN', 'ADJ', 'VERB', 'ADV'])
+        
+    return doc
+
+tweets = normalize(tweets)
+joint_tweets = [','.join(t) for t in tweets]
+pd.DataFrame(joint_tweets, columns=['Tweets']).to_csv('processed_tweets.csv')
+
+```
+
+## topic_model.py
+
+```python
+import gensim
+import gensim.corpora as corpora
+from gensim.corpora import Dictionary
+from gensim.models.coherencemodel import CoherenceModel
+from gensim.models.ldamodel import LdaModel
+
+from pprint import pprint
+
+import pickle
+import re 
+import pyLDAvis
+import pyLDAvis.gensim_models
+
+import matplotlib.pyplot as plt 
+import pandas as pd
+
+tweets = pd.read_csv('processed_tweets.csv')
+tweets = tweets.Tweets.values.tolist()
+
+tweets = [t.split(',') for t in tweets]
+
+id2word = Dictionary(tweets)
+# Term Document Frequency
+corpus = [id2word.doc2bow(text) for text in tweets]
+print(corpus[:1])
+
+[[(id2word[i], freq) for i, freq in doc] for doc in corpus[:1]]
+
+# Build LDA model
+lda_model = LdaModel(corpus=corpus,
+                   id2word=id2word,
+                   num_topics=10, 
+                   random_state=0,
+                   chunksize=100,
+                   alpha='auto',
+                   per_word_topics=True)
+
+pprint(lda_model.print_topics())
+doc_lda = lda_model[corpus]
+
+
+#Creating Topic Distance Visualization 
+visualization = pyLDAvis.gensim_models.prepare(lda_model, corpus, id2word)
+pyLDAvis.save_html(visualization, 'LDA_Visualization.html')
+
+
